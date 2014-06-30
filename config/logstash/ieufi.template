@@ -1,0 +1,28 @@
+{
+    "template": "ieufi-*",
+    "settings" : {
+        "number_of_shards" : 4,
+        "number_of_replicas" : 0,
+        "index" : {
+            "query" : { "default_field" : "@message" },
+            "store" : { "compress" : { "stored" : true, "tv": true } },
+            "cache" : { "field_type" : "soft" }
+        }
+    },
+    "mappings": {
+        "tweet": {
+            "_all": { "enabled": false },
+            "_source": { "compress": true },
+            "properties" : {
+                "@fields": { "type": "object", "dynamic": true, "path": "full" },
+                "@message" : { "type" : "string", "index" : "analyzed" },
+                "@source" : { "type" : "string", "index" : "not_analyzed" },
+                "@source_host" : { "type" : "string", "index" : "not_analyzed" },
+                "@source_path" : { "type" : "string", "index" : "not_analyzed" },
+                "@tags": { "type": "string", "index" : "not_analyzed" },
+                "@timestamp" : { "type" : "date", "index" : "not_analyzed" },
+                "@type" : { "type" : "string", "index" : "not_analyzed" }
+            }
+        }
+    }
+}
